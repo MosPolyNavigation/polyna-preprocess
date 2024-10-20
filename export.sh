@@ -6,6 +6,15 @@ basepath=$(pwd)
 
 mkdir -p dist
 
+cat >dist/index.html << EOF
+<html>
+<head>
+<title>List of static files</title>
+</head>
+<body>
+<ol>
+EOF
+
 for item in ${arr[*]}
 do
   echo "Exporting static data from $item"
@@ -14,3 +23,12 @@ do
   cp dist/* ../dist
   cd $basepath
 done
+
+for item in $(ls dist)
+do
+  if [[ $item != index.html ]]; then
+    echo "<li>$item</li>" >> dist/index.html
+  fi
+done
+
+echo "</ol></body></html>" >> dist/index.html
