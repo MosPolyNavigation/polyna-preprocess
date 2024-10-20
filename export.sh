@@ -27,7 +27,7 @@ done
 for item in $(ls dist)
 do
   if [[ $item != index.html ]]; then
-    echo "<li>$item</li>" >> dist/index.html
+    echo "<li><a href=\"$item\">$item</a></li>" >> dist/index.html
   fi
 done
 
