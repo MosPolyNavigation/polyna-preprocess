@@ -30,8 +30,11 @@ jobs:
 
 
       # Deploy with Github Static Pages
-      - name: List
-        run: ls -la ./ && ls -la ./PD-tasks
+      - name: Export data to dist
+        run: ./export.sh
+
+      - name: List dist
+        run: ls -la dist
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
