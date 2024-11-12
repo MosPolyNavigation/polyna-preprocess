@@ -19,6 +19,7 @@ for item in ${arr[*]}
 do
   echo "Exporting static data from $item"
   cd $item
+  npm ci
   npm run export
   cp dist/* ../dist
   cd $basepath
