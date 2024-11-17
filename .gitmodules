@@ -1,6 +1,0 @@
-[submodule "PD-tasks"]
-	path = PD-tasks
-	url = https://github.com/sidecuter/PD-tasks
-[submodule "navigationData"]
-	path = navigationData
-	url = https://github.com/lonanl/navigationData
