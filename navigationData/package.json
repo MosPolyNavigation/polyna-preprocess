@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "test": "node --env-file=.env --import=tsx .",
-    "export": "node --import=tsx ."
+    "export": "node --env-file=.env --import=tsx ."
   },
   "author": "",
   "license": "ISC",
