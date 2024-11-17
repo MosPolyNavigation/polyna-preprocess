@@ -1,0 +1,23 @@
+{
+  "name": "navigation-data",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "scripts": {
+    "test": "node --env-file=.env --import=tsx .",
+    "export": "node --import=tsx ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "google-auth-library": "^9.14.2",
+    "google-spreadsheet": "^4.1.4",
+    "googleapis": "^144.0.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.1"
+  }
+}
