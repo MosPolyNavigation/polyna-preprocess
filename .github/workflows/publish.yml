@@ -31,11 +31,18 @@ jobs:
       - uses: actions/checkout@v4 # repo checkout
         with:
           submodules: 'true'
-
+      - name: Prepare environment
+        run: ./prepare.sh
+        env:
+          CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
       # Deploy with Github Static Pages
       - name: Export data to dist
         run: ./export.sh
+
+      - name: Clear env
+        run: rm **/.env
 
       # - name: List dist
       #   run: ls -la dist && cat dist/index.html
