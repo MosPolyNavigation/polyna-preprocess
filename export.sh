@@ -1,6 +1,9 @@
 #!/bin/bash
 
-arr=(PD-tasks)
+arr=(
+  PD-tasks
+  navigationData
+)
 
 basepath=$(pwd)
 
@@ -19,6 +22,7 @@ for item in ${arr[*]}
 do
   echo "Exporting static data from $item"
   cd $item
+  cp ../.env ./.env
   npm ci
   npm run export
   cp dist/* ../dist
