@@ -16,6 +16,7 @@
     devShells.${system}.default = pkgs.mkShellNoCC {
       nativeBuildInputs = with pkgs; [
         act
+        nodejs
       ];
     };
   };
