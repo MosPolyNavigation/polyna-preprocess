@@ -17,9 +17,85 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  Github-Pages-Release:
-
+  build:
     timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        subproject: ['PD-tasks', 'navigationData']
+    steps:
+      - uses: actions/checkout@v4 # repo checkout
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: '${{matrix.subproject}}/package-lock.json'
+
+      - name: Cd to subproject
+        run: cd ${{matrix.subproject}}
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Prepare environment
+        run: |
+          cat "CLIENT_EMAIL=\"${{secrets.CLIENT_EMAIL}}\"" > .env
+          cat "PRIVATE_KEY=\"${{secrets.PRIVATE_KEY}}\"" >> .env
+
+      - name: Build project
+        run: npm run deploy
+
+      - name: Clear env
+        run: rm .env
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{matrix.subproject}}
+          path: ./dist
+
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge build artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: all-dist
+          delete-merged: true
+
+      - name: Download merged
+        uses: actions/download-artifact@v4
+        with:
+          name: all-dist
+
+      - name: Provide index
+        run: |
+          cat >index.html << EOF
+          <html>
+          <head>
+          <title>List of static files</title>
+          </head>
+          <body>
+          <ol>
+          EOF
+          for item in $(ls .)
+          do
+            if [[ $item != index.html ]]; then
+              echo "<li><a href=\"$item\">$item</a></li>" >> index.html
+            fi
+          done
+
+      - name: Upload artifacts for pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload dist dir
+          path: '.'
+        
+  Github-Pages-Release:
+    needs: merge
 
     environment:
       name: github-pages
@@ -28,44 +104,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4 # repo checkout
-        with:
-          submodules: 'true'
-
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-          cache-dependency-path: '**/package-lock.json'
-      - name: Prepare environment
-        run: ./prepare.sh
-        env:
-          CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-
-      # Deploy with Github Static Pages
-      - name: Export data to dist
-        run: ./export.sh
-
-      - name: Clear env
-        run: rm **/.env
-
-      # - name: List dist
-      #   run: ls -la dist && cat dist/index.html
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-        with:
-          enablement: true
-          # token:
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload dist dir
-          path: './dist'
-
       - name: Deploy to GitHub Pages 🚀
         id: deployment
         uses: actions/deploy-pages@v4
