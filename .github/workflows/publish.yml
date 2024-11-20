@@ -45,7 +45,7 @@ jobs:
 
       - name: Build project
         working-directory: ./${{matrix.subproject}}
-        run: npm run deploy
+        run: npm run export
 
       - name: Clear env
         working-directory: ./${{matrix.subproject}}
