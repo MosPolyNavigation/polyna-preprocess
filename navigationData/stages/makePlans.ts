@@ -20,9 +20,9 @@ export async function makePlans(spreadsheet: GoogleSpreadsheet, locations: Locat
 						graph: JSON.parse(minifyJSON(row.get(Keys.plans.graph))),
 						entrances: JSON.parse(minifyJSON(row.get(Keys.plans.entrances))),
 					};
-					// if(plan.available) {
-					// 	plan.rooms = []
-					// }
+					if(plan.available) {
+						plan.rooms = []
+					}
 					corpus.plans.push(plan); // Добавляем план в корпус
 
 				}
