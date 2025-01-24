@@ -1,3 +1,5 @@
+import {toBoolean} from "../functions/commons.ts";
+
 export type Location = {
 	id: string
 	title: string
@@ -18,6 +20,7 @@ export type Corpus = {
 }
 
 export type Plan = {
+	rooms?: Room[];
 	id: string
 	// corpusID: string
 	floor: string
@@ -25,4 +28,13 @@ export type Plan = {
 	wayToSvg: string
 	graph: string
 	entrances: string
+}
+
+export type Room = {
+	id: string
+	type: string
+	available: boolean
+	numberOrTitle: string
+	tabletText: string
+	addInfo: string
 }

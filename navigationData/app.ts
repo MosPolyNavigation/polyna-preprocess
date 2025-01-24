@@ -5,6 +5,7 @@ import {auth} from './functions/auth.ts';
 import {makeLocations} from './stages/makeLocations.js';
 import {makeCorpuses} from './stages/makeCorpuses.js';
 import {makePlans} from './stages/makePlans.js';
+import {makeRooms} from "./stages/makeRooms.ts";
 
 
 const spreadsheet: GoogleSpreadsheet = new GoogleSpreadsheet(config.spreadsheetID, auth); //Создаем документ таблицы по айди и токену
@@ -14,6 +15,7 @@ const locations = await makeLocations(spreadsheet)
 await makeCorpuses(spreadsheet, locations) //заполнение корпусов в локации, сама
 // переменная нужна чтобы потом было удобнее искать корпусы и локации
 await makePlans(spreadsheet, locations)
+await makeRooms(spreadsheet, locations)
 
 
 fs.rmSync('dist', { recursive: true, force: true })
