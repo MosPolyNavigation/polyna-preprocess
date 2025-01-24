@@ -1,7 +1,7 @@
 import {is_valid, unify} from "../name_unifier/main.js";
 import use_state from "../state/main.js";
 
-const filter_reg = /(пд|зал|cпорт|онлайн|лайн|федеральная|имаш|hami|нами|техноград|биокомбинат|сколково|биотехнологии|hами)/i;
+const filter_reg = /(пд|зал|cпорт|онлайн|лайн|федеральная|имаш|hami|нами|техноград|биокомбинат|сколково|биотехнологии|hами|деятельность)/i;
 
 const [getAuds, setAuds, updateAuds] = use_state({});
 
