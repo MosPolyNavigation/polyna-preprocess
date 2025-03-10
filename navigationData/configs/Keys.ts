@@ -21,6 +21,13 @@ const Keys = {
 		entrances: 'Входы',
 		graph: 'Граф',
 	},
+	rooms: {
+		type: 'Тип',
+		plan: 'План',
+		numberOrTitle: "Номер\\Название",
+		tabletText: "Надпись с таблички",
+		addInfo: "Дополнительная информация",
+	}
 };
 
 export {Keys};
