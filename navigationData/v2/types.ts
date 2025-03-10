@@ -43,6 +43,6 @@ export type Room = {
 export type ExportData = {
     locations: Array<Location>
     corpuses: Array<Corpus>
-    plan: Array<Plan>
-    room: Array<Room>
+    plans: Array<Plan>
+    rooms: Array<Room>
 }
