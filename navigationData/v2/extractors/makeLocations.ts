@@ -6,8 +6,8 @@ import {Location} from '../types.js';
 
 
 export async function makeLocations(spreadsheet: GoogleSpreadsheet): Promise<Location[]> {
-    let rows = await getSheetRows(spreadsheet, config.sheetsIDs.locations);
-	let locations = rows.map(row => {
+    const rows = await getSheetRows(spreadsheet, config.sheetsIDs.locations);
+	const locations = rows.map(row => {
         // По каждой строке таблицы получаем его поля по ключу (заголовку столбца) и сохраняем в объект с локациями
         const location: Location = {
             id: row.get(Keys.id),

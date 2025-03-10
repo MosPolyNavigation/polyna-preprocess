@@ -5,8 +5,8 @@ import {getSheetRows, minifyJSON, toBoolean} from '../../functions/commons.js';
 import {Corpus} from '../types.js';
 
 export async function makeCorpuses(spreadsheet: GoogleSpreadsheet): Promise<Corpus[]> {
-    let rows = await getSheetRows(spreadsheet, config.sheetsIDs.corpuses);
-    let corpuses = rows.map(row => {
+    const rows = await getSheetRows(spreadsheet, config.sheetsIDs.corpuses);
+    const corpuses = rows.map(row => {
         const corpus: Corpus = {
             id: row.get(Keys.id),
             title: row.get(Keys.title),
