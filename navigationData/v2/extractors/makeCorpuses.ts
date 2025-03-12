@@ -2,11 +2,12 @@ import {GoogleSpreadsheet} from 'google-spreadsheet';
 import {Keys} from '../../configs/Keys.ts';
 import config from '../../configs/config.json';
 import {getSheetRows, minifyJSON, toBoolean} from '../../functions/commons.js';
+import {filterRow} from './filter.ts';
 import {Corpus} from '../types.js';
 
 export async function makeCorpuses(spreadsheet: GoogleSpreadsheet): Promise<Corpus[]> {
     const rows = await getSheetRows(spreadsheet, config.sheetsIDs.corpuses);
-    const corpuses = rows.map(row => {
+    const corpuses = rows.filter(filterRow).map(row => {
         const corpus: Corpus = {
             id: row.get(Keys.id),
             title: row.get(Keys.title),

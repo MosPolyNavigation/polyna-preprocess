@@ -2,12 +2,13 @@ import {GoogleSpreadsheet} from 'google-spreadsheet';
 import {Keys} from '../../configs/Keys.ts';
 import config from '../../configs/config.json';
 import {getSheetRows, minifyJSON, toBoolean} from '../../functions/commons.js';
+import {filterRow} from './filter.ts';
 import {Location} from '../types.js';
 
 
 export async function makeLocations(spreadsheet: GoogleSpreadsheet): Promise<Location[]> {
     const rows = await getSheetRows(spreadsheet, config.sheetsIDs.locations);
-	const locations = rows.map(row => {
+	const locations = rows.filter(filterRow).map(row => {
         // По каждой строке таблицы получаем его поля по ключу (заголовку столбца) и сохраняем в объект с локациями
         const location: Location = {
             id: row.get(Keys.id),

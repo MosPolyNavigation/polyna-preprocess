@@ -2,11 +2,12 @@ import {GoogleSpreadsheet} from 'google-spreadsheet';
 import {Keys} from '../../configs/Keys.ts';
 import config from '../../configs/config.json';
 import {getSheetRows, minifyJSON, toBoolean} from '../../functions/commons.js';
+import {filterRow} from './filter.ts';
 import {Plan} from '../types.ts';
 
 export async function makePlans(spreadsheet: GoogleSpreadsheet): Promise<Plan[]> {
     const rows = await getSheetRows(spreadsheet, config.sheetsIDs.plans);
-    const plans = rows.map(row => {
+    const plans = rows.filter(filterRow).map(row => {
         const plan: Plan = {
             id: row.get(Keys.id),
             floor: row.get(Keys.plans.floor),
@@ -21,4 +22,3 @@ export async function makePlans(spreadsheet: GoogleSpreadsheet): Promise<Plan[]>
     console.log('Планы (этажи) заполнены\n');
     return plans;
 }
-
