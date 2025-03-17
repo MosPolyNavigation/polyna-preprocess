@@ -4,30 +4,31 @@ export type Location = {
     short: string
     available: boolean
     address: string
-    // corpuses?: Corpus[]
     crossings?: string
 }
 
 export type Corpus = {
     id: string
-    // locationID: string
     title: string
     available: boolean
-    // plans?: Plan[]
     stairs?: string
     locationId: string
 }
 
 export type Plan = {
-    // rooms?: Room[];
     id: string
-    // corpusID: string
     floor: string
     available: boolean
     wayToSvg: string
     graph: string
     entrances: string
     corpusId: string
+    nearest: {
+        enter: string
+        ww?: string
+        wm?: string
+        ws?: string
+    }
 }
 
 export type Room = {
