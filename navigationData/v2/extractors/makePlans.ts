@@ -5,6 +5,10 @@ import {getSheetRows, minifyJSON, toBoolean} from '../../functions/commons.js';
 import {filterRow} from './filter.ts';
 import {Plan} from '../types.ts';
 
+const toUndefIfEmpty = (value: string): string  => {
+    return value === "" ? undefined : value
+}
+
 export async function makePlans(spreadsheet: GoogleSpreadsheet): Promise<Plan[]> {
     const rows = await getSheetRows(spreadsheet, config.sheetsIDs.plans);
     const plans = rows.filter(filterRow).map(row => {
@@ -18,9 +22,9 @@ export async function makePlans(spreadsheet: GoogleSpreadsheet): Promise<Plan[]>
             corpusId: row.get(Keys.plans.corpus),
             nearest: {
                 enter: row.get(Keys.plans.nearest.enter),
-                wm: row.get(Keys.plans.nearest.wm),
-                ww: row.get(Keys.plans.nearest.ww),
-                ws: row.get(Keys.plans.nearest.ws),
+                wm: toUndefIfEmpty(row.get(Keys.plans.nearest.wm)),
+                ww: toUndefIfEmpty(row.get(Keys.plans.nearest.ww)),
+                ws: toUndefIfEmpty(row.get(Keys.plans.nearest.ws)),
             }
         };
         return plan;
