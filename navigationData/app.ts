@@ -47,9 +47,4 @@ fs.writeFileSync('dist/locationsLinedV2.json', JSON.stringify(data, null, 2)); /
 fs.writeFileSync('dist/locationsV2.json', JSON.stringify(data));
 
 console.log('ФАЙЛ СОХРАНЕН');
-setTimeout(() => {
-}, 1500)
-
-// await makeCorpuses()
-
-
+setTimeout(() => {}, 1500)
