@@ -15,7 +15,13 @@ export async function makePlans(spreadsheet: GoogleSpreadsheet): Promise<Plan[]>
             wayToSvg: row.get(Keys.plans.wayToSvg),
             graph: JSON.parse(minifyJSON(row.get(Keys.plans.graph))),
             entrances: JSON.parse(minifyJSON(row.get(Keys.plans.entrances))),
-            corpusId: row.get(Keys.plans.corpus)
+            corpusId: row.get(Keys.plans.corpus),
+            nearest: {
+                enter: row.get(Keys.plans.nearest.enter),
+                wm: row.get(Keys.plans.nearest.wm),
+                ww: row.get(Keys.plans.nearest.ww),
+                ws: row.get(Keys.plans.nearest.ws),
+            }
         };
         return plan;
     });
