@@ -1,7 +1,9 @@
 import {is_valid, unify} from "../name_unifier/main.js";
 import use_state from "../state/main.js";
 
-const filter_reg = /(пд|зал|cпорт|онлайн|лайн|федеральная|имаш|hami|нами|техноград|биокомбинат|сколково|биотехнологии|hами|деятельность)/i;
+const filter_reg =
+  /(пд|зал|cпорт|онлайн|лайн|федеральная|имаш|hami|нами|техноград|биокомбинат|сколково|биотехнологии|hами|деятельность|базы практик|Базы практик)/i;
+
 
 const [getAuds, setAuds, updateAuds] = use_state({});
 
@@ -16,7 +18,11 @@ export const auditories = (contents, count = null) => {
 }
 
 
-const parseGroup = (group) => Object.values(group.grid).forEach(day => parseDay(day));
+const parseGroup = (group) => {
+    if (typeof group?.grid === 'undefined') return;
+    Object.values(group.grid).forEach((day) => parseDay(day));
+  };
+  
 
 const parseDay = (day) => {
     Object.values(day).forEach(para => para

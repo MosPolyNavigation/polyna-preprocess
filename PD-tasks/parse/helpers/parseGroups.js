@@ -5,10 +5,11 @@ import { parseGrid } from "./parseGrid.js";
  * @param {Object} contents
  */
 export const parseGroups = (contents) => {
-    // Пробегаемся по всем группам с расписания
-    Object.entries(contents).forEach(([group, content]) => {
-        // Нам интересна только сетка расписания, потому извлекаем ее
-        // и вызываем парсер сетки
-        parseGrid(content.grid, group);
-    });
-}
+  // Пробегаемся по всем группам расписания
+  Object.entries(contents).forEach(([group, content]) => {
+    // Не у всех групп может быть сетка. Пропускаем такие.
+    if (!content || typeof content.grid === "undefined") return;
+    // Нам интересна только сетка расписания -> передаём её дальше
+    parseGrid(content.grid, group);
+  });
+};
