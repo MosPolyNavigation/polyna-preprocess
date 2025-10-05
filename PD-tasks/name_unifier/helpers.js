@@ -8,21 +8,21 @@ const BS_REG = /(?<cor>а|б|в|нд|н)-?(?<num>\d{1,3})?(?<sub>[а-я]{1,3})?/
 
 export const av = (aud) => {
     let groups = aud.match(AV_REG).groups;
-    let nums = `-${groups.cor}-${groups.num}`;
+    let nums = `-${groups.cor}${groups.num}`;
     let sub = groups.sub !== undefined ? `-${transliterate(groups.sub)}` : "";
     return `av${nums+sub}`;
 };
 
 export const pr = (aud) => {
     let groups = aud.match(PR_REG).groups;
-    let nums = `-${groups.cor}-${groups.num}`;
+    let nums = `-${groups.cor}${groups.num}`;
     let sub = groups.sub !== undefined ? `-${transliterate(groups.sub)}` : "";
     return `pr${nums+sub}`;
 };
 
 export const m = (aud) => {
     let groups = aud.match(M_REG).groups;
-    let nums = groups.cor !== undefined && groups.num !== undefined ? `-${groups.cor}-${groups.num}` : "";
+    let nums = groups.cor !== undefined && groups.num !== undefined ? `-${groups.cor}${groups.num}` : "";
     let sub = groups.sub !== undefined ? `-${transliterate(groups.sub)}` : "";
     return `m${nums+sub}`;
 };
