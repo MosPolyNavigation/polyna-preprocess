@@ -160,13 +160,11 @@ export async function buildScheduleMap({ indexUrl = DEFAULT_INDEX_URL, delayMs =
   const { groups } = await fetchGroupsMapFromIndex(indexUrl);
   const entries = Object.entries(groups);
   const result = {};
-  for (const [groupCode, flag] of entries) {
-    if (flag === true) {
+  for (const [groupCode, flag] of Object.entries(groups)) {
+    if (!flag) {
       const data = await fetchGroupSchedule(groupCode);
-      result[groupCode] = data && typeof data === 'object' ? data : {};
+      result[groupCode] = (data && typeof data === 'object') ? data : {};
       await sleep(delayMs);
-    } else if (flag === false) {
-      result[groupCode] = {};
     } else if (flag && typeof flag === 'object') {
       result[groupCode] = flag;
     } else {
